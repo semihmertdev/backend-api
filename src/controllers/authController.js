@@ -7,10 +7,15 @@ const prisma = new PrismaClient();
 
 exports.register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, isAuthor } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
-      data: { username, email, password: hashedPassword }
+      data: { 
+        username, 
+        email, 
+        password: hashedPassword,
+        isAuthor: isAuthor || false 
+      }
     });
     const token = generateToken(user);
     res.status(201).json({ user: { id: user.id, username: user.username, email: user.email }, token });
@@ -18,6 +23,7 @@ exports.register = async (req, res) => {
     res.status(400).json({ message: 'Registration failed', error: error.message });
   }
 };
+
 
 exports.login = async (req, res) => {
   try {
