@@ -8,12 +8,21 @@ const commentRoutes = require('./src/routes/commentRoutes');
 
 const app = express();
 
-app.use(cors());
+// CORS settings
+app.use(cors({
+  origin: 'https://public-blog-iota.vercel.app', 
+  methods: 'GET, POST, PUT, DELETE, OPTIONS', 
+  allowedHeaders: 'Content-Type, Authorization',
+  credentials: true, 
+}));
+
+// Preflight request handle
+app.options('*', cors());
+
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
-app.options('*', cors());  // Preflight request'ler için CORS yanıtını ekleyin
 
 module.exports = app; // Export the app for Vercel's serverless function
