@@ -14,5 +14,6 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
+app.options('*', cors());  // Preflight request'ler için CORS yanıtını ekleyin
 
 module.exports = app; // Export the app for Vercel's serverless function
