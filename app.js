@@ -8,7 +8,7 @@ const commentRoutes = require('./src/routes/commentRoutes');
 
 const app = express();
 
-// CORS settings
+// CORS setting2s
 app.use(cors({
   origin: 'https://public-blog-iota.vercel.app', 
   methods: 'GET, POST, PUT, DELETE, OPTIONS', 
