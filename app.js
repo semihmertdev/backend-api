@@ -8,21 +8,14 @@ const commentRoutes = require('./src/routes/commentRoutes');
 
 const app = express();
 
-// CORS setting2s
-app.use(cors({
-  origin: 'https://public-blog-iota.vercel.app', 
-  methods: 'GET, POST, PUT, DELETE, OPTIONS', 
-  allowedHeaders: 'Content-Type, Authorization',
-  credentials: true, 
-}));
-
-// Preflight request handle
-app.options('*', cors());
-
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 
-module.exports = app; // Export the app for Vercel's serverless function
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;
